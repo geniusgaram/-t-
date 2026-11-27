@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>김가람t 노예 오피스</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <style>
+    :root {
+      --bg: #fdf8f2;
+      --surface: #ffffff;
+      --surface-soft: #f7efe4;
+      --border: #eadbc8;
+      --text: #3b2a1e;
+      --text-sub: #7d6857;
+      --accent: #a65c21;
+      --accent-dark: #854614;
+      --accent-soft: #f5e2cc;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --amber: #d97706;
+      --amber-soft: #fef3c7;
+      --shadow: 0 6px 20px rgba(74, 48, 28, 0.07);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .app {
+      max-width: 540px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 16px 14px 40px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff5e6, #f6dec0);
+      border: 2px solid #e6caa8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 3px 10px rgba(166, 92, 33, 0.12);
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-sub {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-sub);
+      margin-top: 1px;
+    }
+
+    .dot-green {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #ecfdf3;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    /* Nav Tabs */
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .nav-btn {
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text-sub);
+      border-radius: 999px;
+      padding: 10px 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.18s ease;
+    }
+
+    .nav-btn:hover { background: #fff; }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #9d561f, #b56527);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(157, 86, 31, 0.28);
+    }
+
+    /* Banner */
+    .banner {
+      background: linear-gradient(135deg, #fffdf9, #f7ead8);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    .banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .banner h2 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .banner p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    /* Controls */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .seg-toggle {
+      display: inline-flex;
+      background: #f2e7d8;
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid var(--border);
+    }
+
+    .seg-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .seg-btn.active {
+      background: #fff;
+      color: var(--text);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+    }
+
+    .chip-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chip-btn.on {
+      background: #fff7e6;
+      border-color: #ebc999;
+      color: #935017;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .stat-pill {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Map Card */
+    .map-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .map-stage {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #3d2a1c;
+    }
+
+    .map-stage img {
+      width: 100%;
+      display: block;
+      user-select: none;
+    }
+
+    /* Room Pins */
+    .room-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(212, 184, 152, 0.9);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--text);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.16s ease;
+    }
+
+    .room-pin:hover {
+      transform: translate(-50%, -50%) scale(1.06);
+    }
+
+    /* Cat status indicators */
+    .cat-marker {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    .cat-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #22c55e;
+      border: 2.5px solid #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .motion-on .cat-dot {
+      animation: pulse 1.8s infinite;
+    }
+
+    .motion-on .room-pin {
+      animation: floatPin 3.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.65); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    @keyframes floatPin {
+      0%, 100% { transform: translate(-50%, -50%); }
+      50% { transform: translate(-50%, -54%); }
+    }
+
+    /* Basic Map View */
+    .basic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .room-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .room-box:hover { transform: translateY(-2px); }
+
+    .room-box-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .room-box-cats {
+      font-size: 12.5px;
+      color: var(--text-sub);
+    }
+
+    /* Cards & Lists */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 15px 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .badge-green { background: var(--green-soft); color: #15803d; }
+    .badge-amber { background: var(--amber-soft); color: #b45309; }
+    .badge-brown { background: var(--accent-soft); color: var(--accent-dark); }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin: 0;
+    }
+
+    .cat-list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f2e8dc;
+    }
+
+    .cat-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .cat-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .cat-info { flex: 1; }
+    .cat-name { font-weight: 800; font-size: 14px; }
+    .cat-role { font-size: 12.5px; color: var(--text-sub); }
+
+    /* Memo */
+    .memo-form {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .memo-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .memo-input:focus { border-color: var(--accent); }
+
+    .btn-primary {
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .memo-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--surface-soft);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-size: 13.5px;
+    }
+
+    .memo-del {
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    /* Toast / Modal */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #2f2117;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 50;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11.5px;
+      color: var(--text-sub);
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Top Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">👑</div>
+        <div>
+          <div class="brand-title">김가람t 노예 오피스</div>
+          <div class="brand-sub"><span class="dot-green"></span> 가람님 전용 · 고양이 비서실</div>
+        </div>
+      </div>
+      <div class="status-pill"><span class="dot-green"></span> 실시간 가동</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-grid" id="navGrid">
+      <button class="nav-btn active" data-tab="map">🗺️ 오피스 맵</button>
+      <button class="nav-btn" data-tab="meeting">💬 회의실</button>
+      <button class="nav-btn" data-tab="work">📋 작업실</button>
+      <button class="nav-btn" data-tab="status">📊 비서현황</button>
+      <button class="nav-btn" data-tab="limits">⚡ AI한도</button>
+      <button class="nav-btn" data-tab="memo">📝 메모</button>
+    </nav>
+
+    <!-- TAB 1: 오피스 맵 -->
+    <section class="panel active" id="tab-map">
+      <div class="banner">
+        <div class="banner-badge">👑 김가람t 노예 오피스 본부</div>
+        <h2>가람님, 고양이 비서 5마리가 대기 중이에요</h2>
+        <p>방을 눌러 들어가 보세요. 방마다 고양이 비서들이 일하고 있어요.</p>
+      </div>
+
+      <div class="controls-row">
+        <div class="seg-toggle">
+          <button class="seg-btn" id="btnStyleBasic">🗺️ 기본</button>
+          <button class="seg-btn active" id="btnStyleClay">🐱 클레이</button>
+        </div>
+        <button class="chip-btn on" id="btnMotion">✨ 움직임 ON</button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-pill"><span class="dot-green"></span> 4개 방 가동</div>
+        <div class="stat-pill">🐾 ON 5마리</div>
+      </div>
+
+      <!-- Clay Map -->
+      <div class="map-card motion-on" id="clayMapWrap">
+        <div class="map-stage">
+          <img src="assets/cats-clay.png" alt="김가람t 노예 오피스 고양이 비서실" />
+
+          <!-- Room Pins -->
+          <button class="room-pin" style="left: 39%; top: 36%;" data-go="status" data-msg="🎯 지휘실: 고등어냥(노예 3호)이 전체 일정을 총괄 중이에요">🎯 지휘실</button>
+          <button class="room-pin" style="left: 22%; top: 53%;" data-go="meeting" data-msg="🏛️ 대회의실: 결정 대기 안건 3건이 논의 중이에요">🏛️ 대회의실</button>
+          <button class="room-pin" style="left: 60%; top: 53%;" data-go="work" data-msg="💻 작업실: 학원·예약·트래킹 비서들이 열일 중!">💻 작업실</button>
+          <button class="room-pin" style="left: 82%; top: 76%;" data-go="memo" data-msg="☕ 라운지: 턱시도냥이 커피 마시며 전화영어를 준비 중이에요">☕ 라운지</button>
+
+          <!-- Cat Dots -->
+          <div class="cat-marker" style="left: 39%; top: 20%;" title="노예 3호 (고등어냥)" data-toast="🐱 노예 3호(고등어냥): 가람님 지시 대기 중입니다!"><div class="cat-dot"></div></div>
+          <div class="cat-marker" style="left: 55%; top: 38%;" title="학사냥 (흰냥)" data-toast="🐱 학사냥(흰냥): 6개 반 출결·영상 84건 관리 중!"><div class="cat-dot"></div></div>
+          <div class="cat-marker" style="left: 73%; top: 43%;" title="티켓냥 (삼색냥)" data-toast="🐱 티켓냥(삼색냥): 고디바·아루히·항공권 트래킹 대기 중!"><div class="cat-dot"></div></div>
+          <div class="cat-marker" style="left: 54%; top: 57%;" title="청약냥 (회색냥)" data-toast="🐱 청약냥(회색냥): 청약홈·건보료·대출 한도 대기 중!"><div class="cat-dot"></div></div>
+          <div class="cat-marker" style="left: 84%; top: 61%;" title="잉글리쉬냥 (턱시도냥)" data-toast="🐱 잉글리쉬냥(턱시도냥): 화~금 10:30 전화영어 준비 완료!"><div class="cat-dot"></div></div>
+        </div>
+      </div>
+
+      <!-- Basic Map -->
+      <div class="map-card" id="basicMapWrap" style="display:none;">
+        <div class="basic-grid">
+          <div class="room-box" data-go="status">
+            <div class="room-box-title"><span>🎯 지휘실</span><span class="badge badge-green">ON</span></div>
+            <div class="room-box-cats">🐱 노예 3호 (고등어냥)<br/>전체 일정·보고 총괄</div>
+          </div>
+          <div class="room-box" data-go="meeting">
+            <div class="room-box-title"><span>🏛️ 대회의실</span><span class="badge badge-amber">3건</span></div>
+            <div class="room-box-cats">결정 대기 안건<br/>청약·건보료·마운자로</div>
+          </div>
+          <div class="room-box" data-go="work">
+            <div class="room-box-title"><span>💻 작업실</span><span class="badge badge-green">3마리</span></div>
+            <div class="room-box-cats">🐱 학사냥 · 티켓냥 · 청약냥<br/>자동 스케줄 7건 가동</div>
+          </div>
+          <div class="room-box" data-go="memo">
+            <div class="room-box-title"><span>☕ 라운지</span><span class="badge badge-brown">휴식</span></div>
+            <div class="room-box-cats">🐱 잉글리쉬냥 (턱시도냥)<br/>전화영어 · 메모장</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 회의실 -->
+    <section class="panel" id="tab-meeting">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🏠 청량리 롯데캐슬 하이루체 (청약)</div>
+          <span class="badge badge-amber">결정 대기</span>
+        </div>
+        <p class="card-desc">59B 1세대(8억 4,138만 원, 즉시 전매·거주의무 없음). 접수 12월 2일 09:00~17:30 · 계약금 12/10 · 잔금 30일 내. 청약 진행 여부와 혼인/자금 계획 확인을 기다리고 있어요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🏥 건강보험료 350만 원 정산분</div>
+          <span class="badge badge-amber">12/10 마감</span>
+        </div>
+        <p class="card-desc">2025년 소득 정산 350만 원 청구(재조정 불가). 일시납 또는 최대 12회 분할납부 신청 여부를 정해 주시면 맞춰 챙길게요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">✈️ 일본 마운자로 구매 행선지</div>
+          <span class="badge badge-brown">후보 비교</span>
+        </div>
+        <p class="card-desc">대마도 당일치기(부산 KTX+배) vs 다카마쓰 당일치기(인천 직항 · 슬림클리닉 7.5mg 12펜 73,200엔). 출발 월요일 날짜가 정해지면 바로 예약 진행할 수 있어요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">📚 학원 확인 대기 사항</div>
+          <span class="badge badge-green">진행 중</span>
+        </div>
+        <p class="card-desc">• 양정1 일요반 4·5주차 복습 영상 업로드 여부<br/>• 한가람1 5주차 과제 처리 방향<br/>• 노션 GARAM-REQ-2·3 검수 대기</p>
+      </div>
+    </section>
+
+    <!-- TAB 3: 작업실 -->
+    <section class="panel" id="tab-work">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">✈️ 오사카·후쿠오카·다카마쓰 항공권 트래킹</div>
+          <span class="badge badge-green">매일 09:30 · 15:30 · 21:30</span>
+        </div>
+        <p class="card-desc">12월 최저가 감시 중 (최근: 다카마쓰 22.9만 · 오사카 24.8만 · 후쿠오카 25.2만). 왕복 20만 원 이하 또는 직전 대비 3만 원 이상 하락 시 바로 전화 드려요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🍡 고디바 롯데월드몰점 찹쌀떡 예약</div>
+          <span class="badge badge-green">평일 08:50 대기</span>
+        </div>
+        <p class="card-desc">오전 9시 정각 오픈에 맞춰 1순위 12:30 / 2순위 14:30으로 매크로처럼 진입합니다. (다음 시도: 11/30 월)</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🍣 여의도 아루히 니와 (12/24 저녁 2인)</div>
+          <span class="badge badge-green">매일 10:00</span>
+        </div>
+        <p class="card-desc">크리스마스 이브 빈자리 체크 중. 2부(19:50) 우선 · 1부(17:20) 차선으로 자리 나면 바로 잡아 결제 연결해 드려요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">📋 매주 일요일 저녁 관리페이지 정리</div>
+          <span class="badge badge-green">일요일 19:00</span>
+        </div>
+        <p class="card-desc">6개 반 출결·과제·테스트·클리닉·복습 영상 누락 여부를 전수 점검해 보고합니다.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🗣️ 아침 전화 영어 &amp; 📚 세현고 직보 트래킹</div>
+          <span class="badge badge-brown">화~금 10:30 / 지정일</span>
+        </div>
+        <p class="card-desc">여행 회화 전화 영어(4회차 카드 발송) 및 12월 세현고 기말 직보 일정 트래킹이 등록되어 있어요.</p>
+      </div>
+    </section>
+
+    <!-- TAB 4: 비서현황 -->
+    <section class="panel" id="tab-status">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🐾 근무 중인 고양이 비서 (5/5)</div>
+          <span class="badge badge-green">전원 정상</span>
+        </div>
+        <div class="cat-list-item">
+          <div class="cat-avatar">🐱</div>
+          <div class="cat-info">
+            <div class="cat-name">노예 3호 (고등어냥) · 지휘실</div>
+            <div class="cat-role">전체 브리핑 · 가람님 직접 지시 수행 · 총괄</div>
+          </div>
+          <span class="badge badge-green">대기 중</span>
+        </div>
+        <div class="cat-list-item">
+          <div class="cat-avatar">🤍</div>
+          <div class="cat-info">
+            <div class="cat-name">학사냥 (흰냥) · 작업실</div>
+            <div class="cat-role">6개 반 관리페이지 · 유튜브 복습 영상(84건) · 노션</div>
+          </div>
+          <span class="badge badge-green">가동 중</span>
+        </div>
+        <div class="cat-list-item">
+          <div class="cat-avatar">🧡</div>
+          <div class="cat-info">
+            <div class="cat-name">티켓냥 (삼색냥) · 작업실</div>
+            <div class="cat-role">고디바 · 아루히 니와 · 12월 일본 항공권 트래킹</div>
+          </div>
+          <span class="badge badge-green">감시 중</span>
+        </div>
+        <div class="cat-list-item">
+          <div class="cat-avatar">🩶</div>
+          <div class="cat-info">
+            <div class="cat-name">청약냥 (회색냥) · 작업실</div>
+            <div class="cat-role">청약홈 공고 · 건강보험료 · 주담대 시뮬레이션</div>
+          </div>
+          <span class="badge badge-amber">답변 대기</span>
+        </div>
+        <div class="cat-list-item">
+          <div class="cat-avatar">🖤</div>
+          <div class="cat-info">
+            <div class="cat-name">잉글리쉬냥 (턱시도냥) · 라운지</div>
+            <div class="cat-role">화~금 10:30 여행 영어 회화 · 4회차 준비</div>
+          </div>
+          <span class="badge badge-brown">대기 중</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🏫 국어 관리페이지 요약</div>
+          <span class="badge badge-brown">6개 반</span>
+        </div>
+        <p class="card-desc">• 등록된 복습 영상: 총 84건 (세현1·2 6주차 포함)<br/>• 양정1 금요반: 6주차 출결·5주차 과제 완료<br/>• 세현2: 5주차 테스트 반 평균 61점 등록 완료<br/>• 노션 AI 협업 본부: GARAM-REQ-2·3 검수 대기</p>
+      </div>
+    </section>
+
+    <!-- TAB 5: AI한도 -->
+    <section class="panel" id="tab-limits">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🔗 연결된 서비스 및 연동 상태</div>
+          <span class="badge badge-green">정상</span>
+        </div>
+        <p class="card-desc">
+          • <strong>Notion</strong> (김가람님의 워크스페이스): 연결됨<br/>
+          • <strong>김가람 국어 관리페이지</strong>: 세션 유지 중<br/>
+          • <strong>안드로이드 기기</strong> (연락처·캘린더): 앱 실행 시 실시간 연동<br/>
+          • <strong>솔라피 문자</strong>: 연동 완료 (승인 후 발송)
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🛡️ 보안 및 데이터 안내</div>
+          <span class="badge badge-brown">안전 모드</span>
+        </div>
+        <p class="card-desc">학생 이름·점수·연락처 같은 개인정보는 공개 웹페이지에 올리지 않고 요약 현황만 표시합니다. 비밀번호나 결제 카드 정보도 별도 보안 볼트에만 저장돼요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🕒 최근 동기화</div>
+          <span class="badge badge-green">2026-11-28</span>
+        </div>
+        <p class="card-desc">오피스 맵과 작업실 현황은 가람님이 피클과 대화하실 때마다 최신 상태로 업데이트됩니다.</p>
+      </div>
+    </section>
+
+    <!-- TAB 6: 메모 -->
+    <section class="panel" id="tab-memo">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">📝 가람님 메모장</div>
+          <span class="badge badge-brown">브라우저 저장</span>
+        </div>
+        <form class="memo-form" id="memoForm">
+          <input class="memo-input" id="memoInput" type="text" placeholder="할 일이나 아이디어를 적어 두세요..." />
+          <button class="btn-primary" type="submit">추가</button>
+        </form>
+        <div id="memoList"></div>
+      </div>
+    </section>
+
+    <div class="footer-note">👑 김가람t 노예 오피스 · Powered by 노예 3호</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const panels = document.querySelectorAll('.panel');
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+    }
+
+    function switchTab(tabId) {
+      navButtons.forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+      panels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + tabId));
+    }
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // Room pins & basic boxes
+    document.querySelectorAll('[data-go]').forEach(el => {
+      el.addEventListener('click', () => {
+        const msg = el.dataset.msg;
+        if (msg) showToast(msg);
+        setTimeout(() => switchTab(el.dataset.go), 350);
+      });
+    });
+
+    // Cat dot tooltips
+    document.querySelectorAll('[data-toast]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        showToast(el.dataset.toast);
+      });
+    });
+
+    // Style toggle
+    const btnBasic = document.getElementById('btnStyleBasic');
+    const btnClay = document.getElementById('btnStyleClay');
+    const clayWrap = document.getElementById('clayMapWrap');
+    const basicWrap = document.getElementById('basicMapWrap');
+
+    btnBasic.addEventListener('click', () => {
+      btnBasic.classList.add('active');
+      btnClay.classList.remove('active');
+      clayWrap.style.display = 'none';
+      basicWrap.style.display = 'block';
+    });
+
+    btnClay.addEventListener('click', () => {
+      btnClay.classList.add('active');
+      btnBasic.classList.remove('active');
+      basicWrap.style.display = 'none';
+      clayWrap.style.display = 'block';
+    });
+
+    // Motion toggle
+    const btnMotion = document.getElementById('btnMotion');
+    let motionOn = true;
+    btnMotion.addEventListener('click', () => {
+      motionOn = !motionOn;
+      btnMotion.classList.toggle('on', motionOn);
+      btnMotion.textContent = motionOn ? '✨ 움직임 ON' : '⏸️ 움직임 OFF';
+      clayWrap.classList.toggle('motion-on', motionOn);
+    });
+
+    // Memo localStorage
+    const STORAGE_KEY = 'garam_office_memos_v1';
+    const defaultMemos = [
+      '청량리 롯데캐슬 하이루체 청약 진행 여부 결정 (12/2 접수)',
+      '건보료 350만 원 분할납부 신청 여부 확인 (12/10 마감)',
+      '마운자로 일본 행선지 & 출발 월요일 날짜 정하기'
+    ];
+    let memos = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || defaultMemos;
+
+    function renderMemos() {
+      const list = document.getElementById('memoList');
+      list.innerHTML = '';
+      memos.forEach((text, idx) => {
+        const item = document.createElement('div');
+        item.className = 'memo-item';
+        const span = document.createElement('span');
+        span.textContent = text;
+        const del = document.createElement('button');
+        del.className = 'memo-del';
+        del.textContent = '✕';
+        del.onclick = () => {
+          memos.splice(idx, 1);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(memos));
+          renderMemos();
+        };
+        item.append(span, del);
+        list.appendChild(item);
+      });
+    }
+
+    document.getElementById('memoForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('memoInput');
+      const val = input.value.trim();
+      if (!val) return;
+      memos.unshift(val);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(memos));
+      input.value = '';
+      renderMemos();
+    });
+
+    renderMemos();
+  </script>
+</body>
+</html>
